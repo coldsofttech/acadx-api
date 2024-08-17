@@ -1,0 +1,38 @@
+[
+    {
+        "icon": "faGoogle",
+        "name": "Google",
+        "placeholder": "Google",
+        "redirectUrl": "https://accounts.google.com"
+    },
+    {
+        "icon": "faXTwitter",
+        "name": "Twitter",
+        "placeholder": "Twitter",
+        "redirectUrl": "https://twitter.com/login"
+    },
+    {
+        "icon": "faMicrosoft",
+        "name": "Microsoft",
+        "placeholder": "Microsoft",
+        "redirectUrl": "https://login.microsoftonline.com"
+    },
+    {
+        "icon": "faGithub",
+        "name": "Github",
+        "placeholder": "Github",
+        "redirectUrl": "https://github.com/login"
+    },
+    {
+        "icon": "faInstagram",
+        "name": "Instagram",
+        "placeholder": "Instagram",
+        "redirectUrl": "https://instagram.com/login"
+    },
+    {
+        "icon": "faFacebookF",
+        "name": "Facebook",
+        "placeholder": "Facebook",
+        "redirectUrl": "https://facebook.com/login"
+    }
+]
