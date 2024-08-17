@@ -27,7 +27,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-          npm install esline --save-dev
+          npm install eslint --save-dev
 
       - name: Run Lint
         run: |
