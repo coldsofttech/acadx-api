@@ -3,7 +3,7 @@
         "icon": "faGoogle",
         "name": "Google",
         "placeholder": "Google",
-        "redirectUrl": "https://accounts.google.com"
+        "redirectUrl": "http://localhost:3002/auth/google"
     },
     {
         "icon": "faXTwitter",
