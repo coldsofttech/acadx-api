@@ -15,7 +15,7 @@
         "icon": "faMicrosoft",
         "name": "Microsoft",
         "placeholder": "Microsoft",
-        "redirectUrl": "https://login.microsoftonline.com"
+        "redirectUrl": "http://localhost:3002/auth/microsoft"
     },
     {
         "icon": "faGithub",
@@ -24,7 +24,7 @@
         "redirectUrl": "https://github.com/login"
     },
     {
-        "icon": "faLinkedIn",
+        "icon": "faLinkedinIn",
         "name": "LinkedIn",
         "placeholder": "LinkedIn",
         "redirectUrl": "http://localhost:3002/auth/linkedin"
