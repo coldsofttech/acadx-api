@@ -24,10 +24,10 @@
         "redirectUrl": "https://github.com/login"
     },
     {
-        "icon": "faInstagram",
-        "name": "Instagram",
-        "placeholder": "Instagram",
-        "redirectUrl": "https://instagram.com/login"
+        "icon": "faLinkedIn",
+        "name": "LinkedIn",
+        "placeholder": "LinkedIn",
+        "redirectUrl": "http://localhost:3002/auth/linkedin"
     },
     {
         "icon": "faFacebookF",
