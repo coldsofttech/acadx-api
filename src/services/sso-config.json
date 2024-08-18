@@ -6,12 +6,6 @@
         "redirectUrl": "http://localhost:3002/auth/google"
     },
     {
-        "icon": "faXTwitter",
-        "name": "Twitter",
-        "placeholder": "Twitter",
-        "redirectUrl": "https://twitter.com/login"
-    },
-    {
         "icon": "faMicrosoft",
         "name": "Microsoft",
         "placeholder": "Microsoft",
@@ -21,7 +15,7 @@
         "icon": "faGithub",
         "name": "Github",
         "placeholder": "Github",
-        "redirectUrl": "https://github.com/login"
+        "redirectUrl": "http://localhost:3002/auth/github"
     },
     {
         "icon": "faLinkedinIn",
