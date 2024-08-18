@@ -30,9 +30,9 @@
         "redirectUrl": "https://instagram.com/login"
     },
     {
-        "icon": "faLinkedinIn",
-        "name": "LinkedIn",
-        "placeholder": "LinkedIn",
-        "redirectUrl": "http://localhost:3002/auth/linkedin"
+        "icon": "faFacebookF",
+        "name": "Facebook",
+        "placeholder": "Facebook",
+        "redirectUrl": "http://localhost:3002/auth/facebook"
     }
 ]
