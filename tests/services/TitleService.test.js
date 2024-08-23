@@ -1,13 +1,12 @@
 const TitleService = require('../../src/services/titles');
 
-describe('TitleService', () => {
+describe('Functional', () => {
     let service;
 
     beforeEach(() => {
         service = new TitleService();
     });
 
-    // Functional tests
     test('GET /titles should return default titles on first call', async () => {
         const titles = await service.getTitles();
         expect(titles).toEqual(['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.']);
@@ -27,8 +26,15 @@ describe('TitleService', () => {
     test('GET /titles should return a promise that resolves to titles', async() => {
         await expect(service.getTitles()).resolves.toEqual(['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.']);
     });
+});
 
-    // Performance tests
+describe('Performance', () => {
+    let service;
+
+    beforeEach(() => {
+        service = new TitleService();
+    });
+
     test('GET /titles should return response in less than 200ms', async () => {
         const start = performance.now();
         await service.getTitles();
@@ -36,13 +42,21 @@ describe('TitleService', () => {
         const duration = end - start;
         expect(duration).toBeLessThan(200);
     });
+});
 
-    // Load tests
+describe('Load', () => {
+    let service;
+    
+    beforeEach(() => {
+        service = new TitleService();
+    });
+
     test('GET /titles handle multiple concurrent requests', async () => {
         const requests = []
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 1000; i++) {
             requests.push(service.getTitles());
         }
+        
         const responses = await Promise.all(requests);
         responses.forEach(titles => {
             expect(titles).toEqual(['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.']);

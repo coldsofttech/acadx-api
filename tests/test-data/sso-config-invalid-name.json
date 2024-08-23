@@ -1,0 +1,8 @@
+[
+    {
+      "icon": "faGoogle",
+      "name": "",
+      "placeholder": "Enter Google URL",
+      "redirectUrl": "https://www.google.com"
+    }
+]  

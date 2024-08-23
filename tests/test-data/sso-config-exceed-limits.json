@@ -1,0 +1,9 @@
+[
+    { "icon": "faGoogle", "name": "Google", "placeholder": "Enter URL", "redirectUrl": "https://www.google.com" },
+    { "icon": "faFacebook", "name": "Facebook", "placeholder": "Enter URL", "redirectUrl": "https://www.facebook.com" },
+    { "icon": "faTwitter", "name": "Twitter", "placeholder": "Enter URL", "redirectUrl": "https://www.twitter.com" },
+    { "icon": "faLinkedin", "name": "LinkedIn", "placeholder": "Enter URL", "redirectUrl": "https://www.linkedin.com" },
+    { "icon": "faGithub", "name": "GitHub", "placeholder": "Enter URL", "redirectUrl": "https://www.github.com" },
+    { "icon": "faReddit", "name": "Reddit", "placeholder": "Enter URL", "redirectUrl": "https://www.reddit.com" },
+    { "icon": "faPinterest", "name": "Pinterest", "placeholder": "Enter URL", "redirectUrl": "https://www.pinterest.com" }
+]  

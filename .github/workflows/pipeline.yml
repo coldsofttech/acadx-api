@@ -59,4 +59,4 @@ jobs:
 
       - name: Run Lint
         run: |
-          npx jest
+          npx jest --verbose

@@ -1,0 +1,8 @@
+[
+    {
+      "icon": "faInvalidIcon",
+      "name": "Invalid Icon",
+      "placeholder": "Enter URL",
+      "redirectUrl": "https://www.example.com"
+    }
+]
