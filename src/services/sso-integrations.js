@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-class SsoIntegration {
+class SsoIntegrationService {
     constructor() {
         this.configFilePath = path.join(__dirname, 'sso-config.json');
         this.ssoData = null;
@@ -38,4 +38,4 @@ class SsoIntegration {
     }
 }
 
-module.exports = SsoIntegration;
+module.exports = SsoIntegrationService;
