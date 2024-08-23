@@ -57,6 +57,6 @@ jobs:
           npm install
           npm install jest --save-dev
 
-      - name: Run Lint
+      - name: Run Test
         run: |
-          npx jest
+          npx jest --verbose
