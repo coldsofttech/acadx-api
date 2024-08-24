@@ -39,8 +39,28 @@ router.get('/sso-integrations', async (req, res) => {
 
 const titleService = new TitleService();
 router.get('/titles', async (req, res) => {
-    const titles = await titleService.getTitles();
-    res.json(titles);
+    try {
+        const { include_archive, include_audit } = req.body || {};
+
+        const titles = await titleService.getTitles(include_archive, include_audit);
+        res.json(titles);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+router.get('/title/:id', async (req, res) => {
+    try {
+        const { include_audit } = req.body || {};
+
+        const title = await titleService.getTitleById(req.params.id, include_audit);
+        res.json(title);
+    } catch (error) {
+        if (error.message.includes('No data found')) {
+            res.status(404).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
 });
 
 module.exports = router;
