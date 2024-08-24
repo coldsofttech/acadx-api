@@ -1,4 +1,5 @@
 const MsSqlDbConfig = require('../dbConfigs/mssql');
+const SqlString = require('sqlstring');
 
 const dbConfig = new MsSqlDbConfig();
 
@@ -41,7 +42,7 @@ class TitleService {
             selectFields += ', created_by, created_on, updated_by, updated_on';
         }
 
-        let query = `SELECT ${selectFields} FROM dbo.titles WHERE id = ${id}`;
+        let query = `SELECT ${selectFields} FROM dbo.titles WHERE id = ${SqlString.escape(id)}`;
         const result = await this.dbPool.request().query(query);
         if (!result.recordset || result.recordset.length === 0) {
             throw new Error(`No data found for ID: ${id}`);
