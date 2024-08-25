@@ -66,7 +66,7 @@ class UserValidator {
             throw new Error('Validation Error: "email" is required and must be a string.');
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(email)) {
             throw new Error('Validation Error: "email" must be a valid email address.');
         }
