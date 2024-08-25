@@ -6,7 +6,6 @@ const ssoIntegrationIconService = new SsoIntegrationIconService();
 
 router.get('/', async (req, res) => {
     const icons = await ssoIntegrationIconService.getIcons();
-    console.log(icons);
     res.json(icons);
 });
 

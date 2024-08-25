@@ -63,4 +63,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body || {};
+        const user = await userService.verifyLogin(email, password);
+        res.status(200).json(user);
+    } catch (error) {
+        if (error.message.includes('No data found')) {
+            res.status(404).json({ error: error.message });
+        } else if (error.message.includes('Invalid password')) {
+            res.status(401).json({ error: error.message })
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+});
+
 module.exports = router;

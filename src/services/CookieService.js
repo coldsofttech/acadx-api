@@ -1,6 +1,5 @@
 const MsSqlDbConfig = require('../dbConfigs/mssql');
-const SqlString = require('sqlstring');
-const ConfigService = require('./ConfigService');
+const ConfigService = require('../helpers/ConfigService');
 const CookieValidator = require('../validators/CookieValidator');
 
 const dbConfig = new MsSqlDbConfig();
