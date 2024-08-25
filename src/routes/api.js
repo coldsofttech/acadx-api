@@ -40,19 +40,48 @@ router.get('/sso-integrations', async (req, res) => {
 const titleService = new TitleService();
 router.get('/titles', async (req, res) => {
     try {
-        const { include_archive, include_audit } = req.body || {};
+        const { includeArchive, includeAudit } = req.body || {};
+        const { page, pageSize } = req.query;
 
-        const titles = await titleService.getTitles(include_archive, include_audit);
-        res.json(titles);
+        console.log(`Archive: ${includeArchive}`);
+        console.log(`Audit: ${includeAudit}`);
+        console.log(`Page: ${req.query.page}`);
+        console.log(`PageSize: ${req.params.pageSize}`);
+
+        const parsedPage = parseInt(page) || 1;
+        const parsedPageSize = parseInt(pageSize) || 10;
+
+        const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+        const { titles, totalRecords } = await titleService.getTitles(
+            parsedPage, parsedPageSize, includeArchive, includeAudit
+        );
+
+        const nextPage = parsedPage + 1;
+        const prevPage = parsedPage - 1 > 0 ? parsedPage - 1 : null;
+        const totalPages = Math.ceil(totalRecords / parsedPageSize);
+        const next = nextPage <= totalPages
+            ? `${baseUrl}?page=${nextPage}&pageSize=${pageSize}`
+            : null;
+        const prev = prevPage
+            ? `${baseUrl}?page=${prevPage}&pageSize=${pageSize}`
+            : null;
+        
+        res.json({
+            titles,
+            totalRecords,
+            totalPages,
+            next,
+            prev
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 router.get('/title/:id', async (req, res) => {
     try {
-        const { include_audit } = req.body || {};
+        const { includeAudit } = req.body || {};
 
-        const title = await titleService.getTitleById(req.params.id, include_audit);
+        const title = await titleService.getTitleById(req.params.id, includeAudit);
         res.json(title);
     } catch (error) {
         if (error.message.includes('No data found')) {
