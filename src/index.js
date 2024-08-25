@@ -13,9 +13,9 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
-const apiRoutes = require('./routes/api');
+const routes = require('./routes/api');
 
-app.use('/v1/api', apiRoutes);
+app.use('/v1/api', routes);
 
 app.listen(port, () => {
     console.log(`AcadX API running on http://localhost:${port}`);

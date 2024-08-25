@@ -1,8 +1,0 @@
-[
-    {
-      "icon": "faGoogle",
-      "name": "Google",
-      "placeholder": "Enter Google URL",
-      "redirectUrl": "htp://www.google.com"
-    }
-]  
