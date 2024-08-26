@@ -84,6 +84,15 @@ class ConfigService {
 
         return result.recordset[0];
     }
+
+    async getConfigValue (component, category, key, defaultValue) {
+        try {
+            const config = await this.configService.getConfigByConfiguration(component, category, key);
+            return config ? config.value : defaultValue;
+        } catch {
+            return defaultValue;
+        }
+    }
 }
 
 module.exports = ConfigService;

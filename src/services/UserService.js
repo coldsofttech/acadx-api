@@ -4,6 +4,7 @@ const SqlString = require('sqlstring');
 const TitleService = require('./TitleService');
 const SsoIntegrationService = require('./SsoIntegrationService');
 const UserValidator = require('../validators/UserValidator');
+const HashService = require('../helpers/HashService');
 
 const dbConfig = new MsSqlDbConfig();
 
@@ -13,6 +14,7 @@ class UserService {
         this.titleService = new TitleService();
         this.ssoIntegrationService = new SsoIntegrationService();
         this.userValidator = new UserValidator(this.titleService, this.ssoIntegrationService);
+        this.hashService = new HashService();
     }
 
     async init() {
@@ -44,7 +46,10 @@ class UserService {
             addColumnValue('last_name', '@last_name', sql.NVarChar, last_name);
             if (dob != null) addColumnValue('dob', '@dob', sql.Date, dob);
             addColumnValue('email', '@email', sql.NVarChar, email);
-            if (password !== null) addColumnValue('password', '@password', sql.NVarChar, password);
+            if (password !== null) {
+                const hashedPassword = await this.hashService.hashPassword(password)
+                addColumnValue('password', '@password', sql.NVarChar, hashedPassword);
+            }
             if (sso_integrator !== null) addColumnValue('sso_integrator', '@sso_integrator', sql.Int, sso_integrator);
             addColumnValue('is_active', '@is_active', sql.Bit, true);
             addColumnValue('created_by', '@created_by', sql.Int, 1);
@@ -124,6 +129,27 @@ class UserService {
         }
 
         return result.recordset[0];
+    }
+
+    async verifyLogin(email, password) {
+        await this.init();
+
+        await this.userValidator.validateEmail(email);
+        await this.userValidator.validatePassword(password);
+
+        let query = `SELECT id, email, password FROM dbo.users WHERE email = ${SqlString.escape(email)} and is_active = 1`;
+        const result = await this.dbPool.request().query(query);
+        if (!result.recordset || result.recordset.length === 0) {
+            throw new Error(`No data found for email: ${email}`);
+        }
+
+        const storedHash = result.recordset[0].password;
+        const verifyPassword = await this.hashService.verifyPassword(storedHash, password);
+        if (!verifyPassword) {
+            throw new Error('Invalid password.');
+        }
+
+        return await this.getUserById(result.recordset[0].id);
     }
 }
 

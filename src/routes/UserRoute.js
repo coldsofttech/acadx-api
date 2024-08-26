@@ -1,10 +1,21 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const Pagination = require('./Pagination');
 const UserService = require('../services/UserService');
+const ConfigService = require('../helpers/ConfigService');
 
 const router = express.Router();
 const pagination = new Pagination();
 const userService = new UserService();
+const configService = new ConfigService();
+
+const rateLimiter = rateLimit({
+    windowMs: configService.getConfigValue('AcadX API', 'RATE_LIMIT', 'WINDOWMS', 900000),
+    max: configService.getConfigValue('AcadX API', 'RATE_LIMIT', 'MAX_IPS', 100),
+    message: configService.getConfigValue(
+        'AcadX API', 'RATE_LIMIT', 'ERROR_MESSAGE', 'Too many requests from this IP. Please try again later.'
+    )
+});
 
 router.get('/', async (req, res) => {
     try {
@@ -57,6 +68,22 @@ router.get('/:id', async (req, res) => {
     } catch (error) {
         if (error.message.includes('No data found')) {
             res.status(404).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
+    }
+});
+
+router.post('/login', rateLimiter, async (req, res) => {
+    try {
+        const { email, password } = req.body || {};
+        const user = await userService.verifyLogin(email, password);
+        res.status(200).json(user);
+    } catch (error) {
+        if (error.message.includes('No data found')) {
+            res.status(404).json({ error: error.message });
+        } else if (error.message.includes('Invalid password')) {
+            res.status(401).json({ error: error.message })
         } else {
             res.status(500).json({ error: error.message });
         }

@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
         const cookie = await cookieService.getCookie(req);
         res.status(200).json(cookie);
     } catch (error) {
-        if (error.includes('not found')) {
+        if (error.message.includes('not found')) {
             res.status(404).json({ error: error.message });
         } else {
             res.status(400).json({ error: error.message });

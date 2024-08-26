@@ -1,6 +1,5 @@
 const MsSqlDbConfig = require('../dbConfigs/mssql');
-const SqlString = require('sqlstring');
-const ConfigService = require('./ConfigService');
+const ConfigService = require('../helpers/ConfigService');
 const CookieValidator = require('../validators/CookieValidator');
 
 const dbConfig = new MsSqlDbConfig();
@@ -21,18 +20,9 @@ class CookieService {
     async setCookie(response, preference) {
         await this.cookieValidator.validateUserInput({ preference });
 
-        const getConfigValue = async (component, category, key, defaultValue) => {
-            try {
-                const config = await this.configService.getConfigByConfiguration(component, category, key);
-                return config ? config.value : defaultValue;
-            } catch {
-                return defaultValue;
-            }
-        }
-
-        const maxAge = Number(await getConfigValue('AcadX UI', 'COOKIE', 'MAX_AGE', 86400000));
-        const path = await getConfigValue('AcadX UI', 'COOKIE', 'PATH', '/');
-        const environment = await getConfigValue('AcadX', 'GENERAL', 'ENVIRONMENT', 'dev')
+        const maxAge = Number(await this.configService.getConfigValue('AcadX UI', 'COOKIE', 'MAX_AGE', 86400000));
+        const path = await this.configService.getConfigValue('AcadX UI', 'COOKIE', 'PATH', '/');
+        const environment = await this.configService.getConfigValue('AcadX', 'GENERAL', 'ENVIRONMENT', 'dev');
         const secure = environment === 'prod';
 
         response.cookie('cookieConsent', preference, {
